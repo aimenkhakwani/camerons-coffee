@@ -1,0 +1,97 @@
+<?php
+    function rps_menu()
+    {
+        $items['rps'] = array(
+            'title' => 'Rock Paper Scissors',
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('rps1_form'),
+            'access callback' => TRUE,
+            'type' => MENU_NORMAL_ITEM,
+        );
+
+        $items['rps_page_two'] = array(
+            'title' => 'Player Two',
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('rps2_form'),
+            'access callback' => TRUE,
+            'type' => MENU_CALLBACK,
+        );
+
+        $items['rps_success_page'] = array(
+            'title' => 'Winner',
+            'page callback' => 'rps_success',
+            'access callback' => TRUE,
+            'type' => MENU_CALLBACK,
+        );
+        return $items;
+    }
+
+    function rps1_form()
+    {
+      $form['player_one'] = array(
+          '#title' => 'Player One, enter rock, paper, or scissors',
+          '#type' => 'textfield',
+          '#element_validate' => array('element_validate_input'),
+          '#required' => TRUE,
+      );
+
+      $form['submit1'] = array(
+          '#type' => 'submit',
+          '#value' => 'Next',
+      );
+      return $form;
+    }
+
+    function rps2_form()
+    {
+      $form['player_two'] = array(
+          '#title' => 'Player Two, enter rock, paper, or scissors',
+          '#type' => 'textfield',
+          '#element_validate' => array('element_validate_input'),
+          '#required' => TRUE,
+      );
+
+      $form['submit2'] = array(
+          '#type' => 'submit',
+          '#value' => 'Next',
+      );
+      return $form;
+    }
+
+    function element_validate_input($element)
+    {
+      $value = strtolower($element['#value']);
+      if ($value != "rock" || $value != "paper" || $value != "scissors") {
+        form_error($element, t("Please enter 'rock', 'paper' or 'scissors'"));
+       }
+    }
+
+    function rps1_form_submit($form, &$form_state)
+    {
+      $player_one_choice = $form_state['values']['player_one'];
+      $_SESSION['player_one_output'] = $player_one_choice;
+      $form_state['redirect'] = 'rps_page_two';
+    }
+
+    function rps2_form_submit($form, &$form_state)
+    {
+      $player_two_choice = $form_state['values']['player_two'];
+      $_SESSION['player_two_output'] = $player_two_choice;
+      $form_state['redirect'] = 'rps_success_page';
+    }
+
+    function rps_success() {
+      $input1 = $_SESSION['player_one_output'];
+      $input2 = $_SESSION['player_two_output'];
+      $output = "";
+
+      if ($input1 == "rock" && $input2 == "scissors" || $input1 == "scissors" && $input2 == "paper" || $input1 == "paper" && $input2 == "rock") {
+        $output = "Player One Wins!";
+       } elseif ($input1 == "rock" && $input2 == "paper" || $input1 == "paper" && $input2 == "scissors" || $input1 == "scissors" && $input2 == "rock") {
+        $output = "Player Two Wins!";
+       }  else {
+        $output = "It's a draw!";
+       }
+
+      return $output;
+    }

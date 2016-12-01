@@ -1,0 +1,5 @@
+name = Rock Paper Scissors
+description = A virtual version of the classic game.
+package = My First Modules
+core = 7.x
+files[] = rps.module
