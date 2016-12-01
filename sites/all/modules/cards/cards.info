@@ -1,0 +1,6 @@
+name = Cards
+description = Greeting cards to Cameron's friends.
+package = My First Modules
+core = 7.x
+files[] = cards.module
+stylesheets[all][] = cards.css

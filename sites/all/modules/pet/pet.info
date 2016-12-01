@@ -1,0 +1,6 @@
+name = Pet
+description = A page about Cameron's cat, Pet.
+package = My First Modules
+core = 7.x
+files[] = pet.module
+stylesheets[all][] = pet_styles.css

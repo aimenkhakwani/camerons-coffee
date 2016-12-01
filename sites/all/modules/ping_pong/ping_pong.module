@@ -1,0 +1,63 @@
+<?php
+    function ping_pong_menu()
+    {
+        $items['ping_pong'] = array(
+            'title' => 'Ping Pong',
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('ping_pong_form'),
+            'access callback' => TRUE,
+            'type' => MENU_NORMAL_ITEM,
+        );
+        $items['ping_pong_success_page'] = array(
+            'title' => 'Success',
+            'page callback' => 'ping_pong_success',
+            'access callback' => TRUE,
+            'type' => MENU_CALLBACK,
+        );
+        return $items;
+    }
+
+    function ping_pong_form()
+    {
+        $form['count_goal'] = array(
+            '#title' => 'Enter a number',
+            '#type' => 'textfield',
+        );
+
+        $form['submit'] = array(
+            '#type' => 'submit',
+            '#value' => 'Go',
+        );
+        return $form;
+    }
+
+    function ping_pong_form_submit($form, &$form_state)
+    {
+        $count_max = $form_state['values']['count_goal'];
+        $output = array();
+
+        for($i = 1; $i <= $count_max; $i++) {
+            if ($i % 3 == 0 && $i % 5 == 0) {
+                array_push($output, "ping-pong");
+            } elseif ($i % 3 == 0) {
+                array_push($output, "ping");
+            } elseif ($i % 5 == 0) {
+                array_push($output, "pong");
+            } else {
+                array_push($output, $i);
+            }
+        }
+
+        $_SESSION['ping_pong_output'] = $output;
+        $form_state['redirect'] = 'ping_pong_success_page';
+    }
+
+    function ping_pong_success()
+    {
+        $output = '<ul>';
+        foreach($_SESSION['ping_pong_output'] as $value) {
+            $output = $output . '<li>' . $value . '</li>';
+        }
+        $output = $output . '</ul>';
+        return "Here you go! $output";
+    }

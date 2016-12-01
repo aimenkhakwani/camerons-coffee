@@ -1,0 +1,32 @@
+<?php
+
+    function cards_menu()
+    {
+        $friends = array(
+            'Jane',
+            'Amelia',
+            'Harriet',
+        );
+
+        $items = array();
+
+        foreach($friends as $friend) {
+            $items['cards/' . $friend] = array(
+                'title' => $friend,
+                'page callback' => 'friend_card',
+                'access callback' => TRUE,
+                'type' => MENU_NORMAL_ITEM,
+                'page arguments' => array(1, $friend),
+            );
+        }
+        return $items;
+    }
+
+    function friend_card($friend)
+    {
+        return '
+            <h3>Hello ' . $friend . '!</h3>
+            <img class="card" src="/sites/all/modules/cards/' . $friend . '.jpg">
+            <p>Suspendisse id risus nec magna sodales sodales malesuada ut sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam iaculis egestas erat sodales consectetur. Donec eu condimentum ex. Nam risus augue, pharetra at sem non, fringilla pulvinar urna. Quisque euismod purus sed purus sodales, vitae mollis augue hendrerit. Nam fermentum urna lac.<br>Hope to see you soon,<br>Cameron</p>
+        ';
+    }

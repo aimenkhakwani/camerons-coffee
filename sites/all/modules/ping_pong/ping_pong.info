@@ -1,0 +1,5 @@
+name = Ping Pong
+description = Print out a list of numbers up to the submitted number.
+package = My First Modules
+core = 7.x
+files[] = ping_pong.module

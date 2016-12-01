@@ -1,0 +1,22 @@
+<?php
+
+    function pet_menu()
+    {
+        $items = array();
+        $items['pet'] = array(
+            'title' => "Cameron's Pet Cat",
+            'page callback' => 'pet_cat',
+            'access callback' => TRUE,
+            'type' => MENU_NORMAL_ITEM,
+        );
+        return $items;
+    }
+
+    function pet_cat()
+    {
+        return '
+            <img class="cat" src="/sites/all/modules/pet/cat.jpg">
+            <br>
+            <h2>Learn more about cats <a href="https://en.wikipedia.org/wiki/Cat" target="_blank">here</a></h2>
+        ';
+    }
