@@ -60,10 +60,11 @@
 
     function element_validate_input($element)
     {
+      $game = array("rock", "paper", "scissors");
       $value = strtolower($element['#value']);
-      if ($value != "rock" || $value != "paper" || $value != "scissors") {
-        form_error($element, t("Please enter 'rock', 'paper' or 'scissors'"));
-       }
+      if(in_array($value, $game) == false) {
+        form_error($element, t('Please enter rock, paper, or scissors'));
+      }
     }
 
     function rps1_form_submit($form, &$form_state)
