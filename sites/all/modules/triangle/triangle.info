@@ -1,0 +1,5 @@
+name = Triangle
+description = Checks to see what kind of triangle is inputted
+package = My First Modules
+core = 7.x
+files[] = triangle.module

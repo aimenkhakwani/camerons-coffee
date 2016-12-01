@@ -22,6 +22,8 @@
         $form['count_goal'] = array(
             '#title' => 'Enter a number',
             '#type' => 'textfield',
+            '#element_validate' => array('element_validate_integer_positive'),
+            '#required' => TRUE,
         );
 
         $form['submit'] = array(
