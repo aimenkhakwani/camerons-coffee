@@ -1,0 +1,6 @@
+name = "Current Time Ajax Link Test"
+description = "A simple Ajax link example"
+package = Custom
+core = 7.x
+files[] = current_time.module
+scripts[] = current_time.js
